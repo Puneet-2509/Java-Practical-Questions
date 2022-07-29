@@ -1,0 +1,55 @@
+Ques 8. Write a program to create a frame using AWT. Implement mouseClicked( ), mouseEntered( ) and mouseExited( ) events. Frame should become visible when mouse enters it.
+**********************CODE****************************
+import java.util.*;
+import java.awt.event.*;
+import java.awt.*;
+public class Q8 extends Frame{
+String msg="";
+public Q8()
+{
+addMouseListener(new MyMouseAdapter(this));
+addMouseMotionListener(new MyMouseAdapter(this));
+addWindowListener(new MyWindowAdapter());
+}
+public void paint(Graphics g)
+{
+g.drawString(msg, 20, 80);
+}
+public static void main(String[] args) {
+Q8 appwin = new Q8();
+appwin.setSize(new Dimension(200,200));
+appwin.setVisible(true);
+}
+}
+class MyMouseAdapter extends MouseAdapter{
+Q8 demo;
+public MyMouseAdapter(Q8 demo)
+{
+this.demo = demo;
+}
+public void mouseClicked(MouseEvent me)
+{
+demo.msg = "Mouse Clicked";
+demo.setSize(new Dimension(200,200));
+demo.repaint();
+}
+public void mouseEntered(MouseEvent me)
+{
+demo.msg = "Mouse Entered";
+demo.setSize(new Dimension(600,600));
+demo.repaint();
+}
+public void mouseExited(MouseEvent me)
+{
+demo.msg = "Mouse Exited";
+demo.setVisible(false);
+demo.repaint();
+}
+}
+class MyWindowAdapter extends WindowAdapter
+{
+public void windowClosing(WindowEvent me)
+{
+System.exit(0);
+}
+}
