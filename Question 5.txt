@@ -1,0 +1,97 @@
+Question 5: Write a program to implement stack. Use exception handling to manage underflow and overflow conditions.
+CODE:
+import java.util.Random;
+class Stack
+{
+private int tos;
+private int[] array;
+final private int size;
+Stack(int size)
+{
+this.tos = -1;
+this.size = size;
+this.array = new int[this.size];
+}
+public void push(int e) throws StackException
+{
+if (tos == size-1)
+throw new StackException("Stack OverFlow: Could not push " + e);
+else
+this.array[++this.tos] = e;
+}
+public int pop() throws StackException
+{
+if (this.tos<0)
+throw new StackException("Stack UnderFlow: Could not pop ");
+else
+return this.array[this.tos--];
+}
+public int getTOS()
+{
+return this.tos;
+}
+public String toString()
+{
+return "Stack<size = " + this.size + ">";
+}
+}
+class StackException extends Exception
+{
+final private String message;
+StackException(String message)
+{
+this.message = message;
+}
+public String getMessage()
+{
+return this.message;
+}
+}
+public class main
+{
+public static void main(String[] args)
+{
+int r;
+Stack stack = new Stack(10);
+Random random = new Random(1250);
+System.out.println(" ");
+System.out.println("Creating a stack of size 10... ");
+System.out.println(" ");
+System.out.println("Pushing integers into the stack.");
+System.out.println(" ");
+while(true)
+{
+r = random.nextInt(100);
+System.out.println(" ");
+System.out.println("Pushing " + r + ".");
+try
+{
+stack.push(r);
+System.out.println("Elements in Stack are: " + (stack.getTOS()+1));
+System.out.println(" ");
+}
+catch(StackException e)
+{
+System.out.println(e.getMessage());
+break;
+}
+}
+System.out.println(" ");
+System.out.println("Popping integers from stack: ");
+System.out.println(" ");
+while(true)
+{
+System.out.println("Elements in Stack = " + (stack.getTOS()+1) );
+System.out.println(" ");
+try
+{
+System.out.println("Popped " + stack.pop() + "." );
+}
+catch(StackException e)
+{
+System.out.println(e.getMessage());
+break;
+}
+}
+}
+}
